@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+:root {
+  --color-forest: #1b3b2b;
+  --color-forest-dark: #10261b;
+  --color-forest-light: #2b5540;
+  --color-gold: #d4a373;
+  --color-gold-light: #e8c9a3;
+  --color-gold-deep: #8a5a2b;
+  --color-charcoal: #222222;
+  --color-cream: #fafaed;
+  --color-cream-dim: #f1efdf;
+  --color-umber: #5c4426;
+  --color-saddle: #4a3627;
+}
+
+@theme inline {
+  --color-forest: var(--color-forest);
+  --color-forest-dark: var(--color-forest-dark);
+  --color-forest-light: var(--color-forest-light);
+  --color-gold: var(--color-gold);
+  --color-gold-light: var(--color-gold-light);
+  --color-gold-deep: var(--color-gold-deep);
+  --color-charcoal: var(--color-charcoal);
+  --color-cream: var(--color-cream);
+  --color-cream-dim: var(--color-cream-dim);
+  --color-umber: var(--color-umber);
+  --color-saddle: var(--color-saddle);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+  font-family: var(--font-body), sans-serif;
+}
+
+h1,
+h2,
+h3,
+.font-brand {
+  font-family: var(--font-brand), "Arial Narrow", sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Subtle topographic contour texture for dark sections */
+.bg-topo {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(212, 163, 115, 0.12), transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(212, 163, 115, 0.1), transparent 40%),
+    repeating-radial-gradient(
+      circle at 50% 40%,
+      rgba(250, 250, 237, 0.05) 0px,
+      rgba(250, 250, 237, 0.05) 1px,
+      transparent 1px,
+      transparent 34px
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
