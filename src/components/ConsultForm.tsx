@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
 
-const ENDPOINT = "https://formsubmit.co/ajax/info@realvalueland.com";
+const ENDPOINT = "/api/contact";
 
 const field =
   "w-full rounded-xl border border-forest/20 bg-white px-4 py-3 text-sm text-charcoal placeholder:text-charcoal/40 focus:border-gold-deep focus:outline-none focus:ring-2 focus:ring-gold/50";
@@ -21,11 +21,11 @@ export function ConsultForm() {
     try {
       const res = await fetch(ENDPOINT, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: new FormData(form),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
       });
       const data = await res.json();
-      if (!res.ok || String(data.success) !== "true") throw new Error("failed");
+      if (!res.ok || !data.ok) throw new Error("failed");
       form.reset();
       setStatus({ kind: "ok" });
     } catch {
@@ -39,15 +39,12 @@ export function ConsultForm() {
       className="mx-auto mt-10 max-w-2xl rounded-3xl bg-cream p-6 text-left shadow-2xl sm:p-10"
     >
       <h3 className="text-center text-3xl text-forest-dark uppercase">Start the Conversation</h3>
-      <input type="hidden" name="_subject" value="New consulting inquiry – Real Value Land LLC" />
-      <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="text" name="_honey" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="f-name" className={label}>Full name *</label>
-          <input id="f-name" name="Name" autoComplete="name" required className={field} />
+          <input id="f-name" name="name" autoComplete="name" required className={field} />
         </div>
         <div>
           <label htmlFor="f-email" className={label}>Email *</label>
@@ -55,11 +52,11 @@ export function ConsultForm() {
         </div>
         <div>
           <label htmlFor="f-phone" className={label}>Phone</label>
-          <input id="f-phone" name="Phone" type="tel" autoComplete="tel" className={field} />
+          <input id="f-phone" name="phone" type="tel" autoComplete="tel" className={field} />
         </div>
         <div>
           <label htmlFor="f-role" className={label}>I am a</label>
-          <select id="f-role" name="I am a" className={field}>
+          <select id="f-role" name="role" className={field}>
             <option>Landowner</option>
             <option>Future builder</option>
             <option>Investor</option>
@@ -68,7 +65,7 @@ export function ConsultForm() {
         </div>
         <div className="sm:col-span-2">
           <label htmlFor="f-service" className={label}>Where do you need help?</label>
-          <select id="f-service" name="Service" className={field}>
+          <select id="f-service" name="service" className={field}>
             <option>Feasibility &amp; land-use review</option>
             <option>Site, utilities &amp; access assessment</option>
             <option>Due diligence &amp; planning</option>
@@ -79,14 +76,14 @@ export function ConsultForm() {
           <label htmlFor="f-location" className={label}>Property location</label>
           <input
             id="f-location"
-            name="Property location"
+            name="location"
             placeholder="County, state, acreage or parcel ID"
             className={field}
           />
         </div>
         <div className="sm:col-span-2">
           <label htmlFor="f-message" className={label}>What are you hoping to do? *</label>
-          <textarea id="f-message" name="Message" rows={5} required className={field} />
+          <textarea id="f-message" name="message" rows={5} required className={field} />
         </div>
       </div>
 

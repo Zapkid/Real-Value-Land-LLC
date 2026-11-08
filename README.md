@@ -15,9 +15,18 @@ npm run build
 
 ## Contact form
 
-`src/components/ConsultForm.tsx` posts to formsubmit.co, which emails
-submissions to info@realvalueland.com. The first submission triggers a
-one-time activation email from FormSubmit to that inbox; confirm it once.
+`src/components/ConsultForm.tsx` posts JSON to `src/app/api/contact/route.ts`,
+which emails the submission through the SMTP2GO HTTP API. Set these in Vercel
+(Settings, Environment Variables) and redeploy:
+
+| Variable | Purpose |
+| --- | --- |
+| `SMTP2GO_API_KEY` | SMTP2GO API key (needs permission to send email) |
+| `CONTACT_FROM_EMAIL` | Sender address, verified in SMTP2GO |
+| `CONTACT_TO_EMAIL` | Inbox that receives submissions |
+| `CONTACT_FROM_NAME` | Optional sender display name |
+
+Replies go to the visitor via the Reply-To header.
 
 ## Deployment
 

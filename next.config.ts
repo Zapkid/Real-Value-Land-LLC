@@ -1,18 +1,17 @@
 import type { NextConfig } from "next";
 
 // Static CSP (no per-request nonce) so the page stays statically generated.
-// The only third-party origin is formsubmit.co, which receives consultation
-// requests from the contact form.
+// Contact form submissions go to our own /api/contact route.
 const contentSecurityPolicy = [
   `default-src 'self'`,
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
   `style-src 'self' 'unsafe-inline'`,
   `img-src 'self' data: blob:`,
   `font-src 'self' data:`,
-  `connect-src 'self' https://formsubmit.co`,
+  `connect-src 'self'`,
   `object-src 'none'`,
   `base-uri 'self'`,
-  `form-action 'self' https://formsubmit.co`,
+  `form-action 'self'`,
   `frame-ancestors 'none'`,
   `upgrade-insecure-requests`,
 ].join("; ");
